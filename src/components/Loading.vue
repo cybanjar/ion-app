@@ -1,31 +1,40 @@
+<template>
+  <div>
+    <ion-text>Ready {{ counter.count }}</ion-text>
+    <ion-button @click="add">Add</ion-button>
+  </div>
+</template>
+
 <script>
-import { computed, defineComponent, loadingController, ref } from "vue";
+import { IonText, IonButton } from "@ionic/vue";
+import { computed, defineComponent, ref } from "vue";
+import { useCounterStore } from "../store/counter";
 
 export default defineComponent({
+  components: { IonText, IonButton },
   setup() {
-    const load = ref(false);
+    const count = ref(0);
+    const counter = useCounterStore();
 
-    const loading = computed({
-      get: () => load,
+    const plusOne = computed({
+      get: () => counter.loading,
       set: (val) => {
-        load = val;
+        counter.loading = val;
       },
     });
 
-    const presentLoading = async () => {
-      const loading = await loadingController.create({
-        message: "Please wait...",
-      });
-
-      await loading.present();
-
-      loading.dismiss();
-    };
+    function add() {
+      counter.increment();
+    }
 
     return {
-      presentLoading,
-      loading,
+      count,
+      add,
+      counter,
     };
   },
 });
 </script>
+
+<style>
+</style>

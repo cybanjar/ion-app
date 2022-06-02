@@ -1,23 +1,25 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import HomePage from '../pages/HomePage.vue'
+import home from '../pages/home.vue'
 import surah from '../pages/surah.vue'
+import splash from '../pages/splash.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/home'
+    name: 'Splash',
+    component: splash
   },
   {
     path: '/home',
     name: 'Home',
-    component: HomePage
+    component: home
   },
   {
     path: '/surah',
     name: 'Surah',
     component: surah
-  }
+  },
 ]
 
 const router = createRouter({

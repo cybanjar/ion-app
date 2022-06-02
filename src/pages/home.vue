@@ -2,7 +2,12 @@
   <ion-page>
     <ion-content :fullscreen="true">
       <div id="container">
-        <strong class="ion-margin-bottom">Read</strong>
+        <p class="ion-margin">
+          "Aku telah tinggalkan pada kalian dua perkara. <br />
+          Kalian tidak akan tersesat selama berpegang kepada keduanya, (yaitu)
+          Kitab Allah dan Sunnah Rasulnya". <br />
+          (HR. Malik, Baihaqy)
+        </p>
         <ion-button
           class="ion-padding"
           color="primary"
@@ -10,14 +15,16 @@
           fill="outline"
           expand="full"
           @click="() => router.push('/surah')"
-        >Al-Qur'an</ion-button>
+          >Al-Qur'an</ion-button
+        >
         <ion-button
           class="ion-padding"
           color="primary"
           shape="round"
           fill="outline"
           expand="full"
-        >Hadist</ion-button>
+          >Hadist</ion-button
+        >
       </div>
     </ion-content>
   </ion-page>
@@ -46,7 +53,6 @@ export default defineComponent({
 <style scoped>
 #container {
   text-align: center;
-
   position: absolute;
   left: 0;
   right: 0;
@@ -54,21 +60,9 @@ export default defineComponent({
   transform: translateY(-50%);
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
-
 #container p {
-  font-size: 16px;
+  font-size: 12px;
   line-height: 22px;
-
   color: #8c8c8c;
-
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
 }
 </style>

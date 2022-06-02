@@ -10,7 +10,7 @@
     </ion-header>
 
     <ion-content>
-      <surah-component :dataSurah="data" />
+      <list-surah :dataSurah="data" />
     </ion-content>
   </ion-page>
 </template>
@@ -26,7 +26,7 @@ import {
   IonHeader,
 } from "@ionic/vue";
 
-import SurahComponent from "../components/SurahComponent";
+import ListSurah from "../components/ListSurah";
 
 import { defineComponent, onMounted, reactive, toRefs } from "vue";
 import axios from "axios";
@@ -41,7 +41,7 @@ export default defineComponent({
     IonTitle,
     IonToolbar,
     IonHeader,
-    SurahComponent,
+    ListSurah,
   },
   setup() {
     const state = reactive({

@@ -10,6 +10,7 @@
     <ion-text class="ion-padding">Surah {{ search.value }}</ion-text>
     <ion-searchbar v-model="search.value"></ion-searchbar>
   </ion-grid>
+  <my-component />
 
   <ion-card v-for="item in filterSurah" :key="item.number">
     <ion-item>
@@ -38,7 +39,14 @@ import {
   IonSearchbar,
   modalController,
 } from "@ionic/vue";
-import { defineComponent, reactive, toRefs, watchEffect, computed } from "vue";
+import {
+  defineComponent,
+  reactive,
+  toRefs,
+  watchEffect,
+  computed,
+  inject,
+} from "vue";
 import { book } from "ionicons/icons";
 import ModalTafsir from "./ModalTafsir";
 
