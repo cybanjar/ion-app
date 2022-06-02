@@ -40,7 +40,7 @@ import {
 } from "@ionic/vue";
 import { defineComponent, reactive, toRefs, watchEffect, computed } from "vue";
 import { book } from "ionicons/icons";
-import ModalTafsir from "./modalTafsir";
+import ModalTafsir from "./ModalTafsir";
 
 export default defineComponent({
   components: {
@@ -72,6 +72,8 @@ export default defineComponent({
       },
     });
 
+    watchEffect(() => (state.data = props.dataSurah));
+
     const filterSurah = computed(() => {
       let tempSurahs = state.data;
 
@@ -89,8 +91,6 @@ export default defineComponent({
     const tafsir = (val) => {
       state.modal.show = val;
     };
-
-    watchEffect(() => (state.data = props.dataSurah));
 
     const openModal = async (item) => {
       console.log(item);
