@@ -23,6 +23,7 @@
           shape="round"
           fill="outline"
           expand="full"
+          router-link="/book"
           >Hadist</ion-button
         >
       </div>

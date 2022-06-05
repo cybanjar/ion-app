@@ -29,7 +29,7 @@ export default defineComponent({
     onMounted(() => {
       setTimeout(() => {
         router.replace("/home");
-      }, 2000);
+      }, 1000);
     });
     return {
       book,

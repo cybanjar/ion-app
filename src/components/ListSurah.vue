@@ -10,9 +10,12 @@
     <ion-text class="ion-padding">Surah {{ search.value }}</ion-text>
     <ion-searchbar v-model="search.value"></ion-searchbar>
   </ion-grid>
-  <my-component />
 
-  <ion-card v-for="item in filterSurah" :key="item.number">
+  <ion-card
+    @click="detail(item)"
+    v-for="item in filterSurah"
+    :key="item.number"
+  >
     <ion-item>
       <ion-button slot="start">{{ item.number }}</ion-button>
       <ion-label>{{ item.name.transliteration.id }}</ion-label>
@@ -39,16 +42,10 @@ import {
   IonSearchbar,
   modalController,
 } from "@ionic/vue";
-import {
-  defineComponent,
-  reactive,
-  toRefs,
-  watchEffect,
-  computed,
-  inject,
-} from "vue";
+import { defineComponent, reactive, toRefs, watchEffect, computed } from "vue";
 import { book } from "ionicons/icons";
 import ModalTafsir from "./ModalTafsir";
+import { useRouter, useRoute } from "vue-router";
 
 export default defineComponent({
   components: {
@@ -70,6 +67,9 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const router = useRouter();
+    const route = useRoute();
+
     const state = reactive({
       data: [],
       search: {
@@ -101,7 +101,6 @@ export default defineComponent({
     };
 
     const openModal = async (item) => {
-      console.log(item);
       const modal = await modalController.create({
         component: ModalTafsir,
         componentProps: {
@@ -112,12 +111,19 @@ export default defineComponent({
       return modal.present();
     };
 
+    const detail = (item) => {
+      router.push({ path: `/surah/${item.number}` });
+    };
+
     return {
       ...toRefs(state),
       book,
       filterSurah,
       tafsir,
       openModal,
+      detail,
+      router,
+      route,
     };
   },
 });

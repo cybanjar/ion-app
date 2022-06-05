@@ -24,6 +24,7 @@ import {
   IonTitle,
   IonToolbar,
   IonHeader,
+  loadingController,
 } from "@ionic/vue";
 
 import ListSurah from "../components/ListSurah";
@@ -46,14 +47,26 @@ export default defineComponent({
   setup() {
     const state = reactive({
       data: [],
+      isLoading: false,
     });
 
     onMounted(() => {
       getSurah();
     });
 
+    const loading = async (value) => {
+      const loading = await loadingController.create({
+        message: "Please wait...",
+      });
+
+      await loading.present(value);
+      await loading.dismiss(value);
+    };
+
     const getSurah = async () => {
       try {
+        loading();
+
         const res = await axios.get("https://api.quran.sutanlab.id/surah/");
         state.data = res.data.data;
       } catch (err) {
