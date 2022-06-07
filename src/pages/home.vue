@@ -32,9 +32,18 @@
 </template>
 
 <script lang="ts">
-import { IonContent, IonPage, IonButton } from "@ionic/vue";
+import {
+  IonContent,
+  IonPage,
+  IonButton,
+  useBackButton,
+  useIonRouter,
+} from "@ionic/vue";
 import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
+import { Plugins } from "@capacitor/core";
+
+const { App } = Plugins;
 
 export default defineComponent({
   name: "HomePage",
@@ -44,6 +53,13 @@ export default defineComponent({
     IonButton,
   },
   setup() {
+    const ionRouter = useIonRouter();
+    useBackButton(-1, () => {
+      if (!ionRouter.canGoBack()) {
+        App.exitApp();
+      }
+    });
+
     return {
       router: useRouter(),
     };

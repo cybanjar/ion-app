@@ -10,7 +10,14 @@
     </ion-header>
 
     <ion-content>
-      <list-surah :dataSurah="data" />
+      <Suspense>
+        <template #default>
+          <list-surah :dataSurah="data" />
+        </template>
+        <template #fallback>
+          <ion-title class="ion-text-center">Loading ...</ion-title>
+        </template>
+      </Suspense>
     </ion-content>
   </ion-page>
 </template>
@@ -24,13 +31,14 @@ import {
   IonTitle,
   IonToolbar,
   IonHeader,
-  loadingController,
+  toastController,
 } from "@ionic/vue";
 
 import ListSurah from "../components/ListSurah";
 
 import { defineComponent, onMounted, reactive, toRefs } from "vue";
 import axios from "axios";
+import { checkmark } from "ionicons/icons";
 
 export default defineComponent({
   name: "HomePage",
@@ -48,31 +56,36 @@ export default defineComponent({
     const state = reactive({
       data: [],
       isLoading: false,
+      message: "",
     });
 
     onMounted(() => {
       getSurah();
     });
 
-    const loading = async (value) => {
-      const loading = await loadingController.create({
-        message: "Please wait...",
-      });
-
-      await loading.present(value);
-      await loading.dismiss(value);
-    };
-
-    const getSurah = async () => {
+    async function getSurah() {
       try {
-        loading();
-
         const res = await axios.get("https://api.quran.sutanlab.id/surah/");
         state.data = res.data.data;
+        state.message = res.data.message;
+
+        openToast();
       } catch (err) {
         console.error(err);
       }
-    };
+    }
+
+    async function openToast() {
+      const toast = await toastController.create({
+        message: state.message,
+        duration: 2000,
+        color: "primary",
+        position: "top",
+        icon: checkmark,
+        animated: true,
+      });
+      return toast.present();
+    }
 
     return {
       ...toRefs(state),
