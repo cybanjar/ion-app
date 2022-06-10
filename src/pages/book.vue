@@ -10,32 +10,66 @@
     </ion-header>
 
     <ion-content>
-      <ion-text>Hadist</ion-text>
+      <loading v-if="isLoading" />
+      <list-book v-else :dataHadist="data"/>
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, onMounted, reactive, toRefs } from "vue"
 import {
   IonPage,
-  IonText,
+  IonContent,
   IonHeader,
   IonToolbar,
   IonButtons,
   IonBackButton,
   IonTitle,
-} from "@ionic/vue";
+} from "@ionic/vue"
+
+import ListBook from '@/components/ListBook.vue'
+import axios from 'axios'
 
 export default defineComponent({
   components: {
     IonPage,
-    IonText,
+    IonContent,
     IonHeader,
     IonToolbar,
     IonButtons,
     IonBackButton,
     IonTitle,
+    ListBook,
   },
+
+  setup() {
+    const state = reactive({
+      data: [],
+      isLoading: false
+    })
+
+    onMounted(() => {
+      getHadist()
+    })
+
+    async function getHadist () {
+      try {
+        state.isLoading = true
+
+        const res = await axios.get('https://api.hadith.sutanlab.id/books')
+        state.data = res.data.data
+
+        state.isLoading = false
+      } catch (err) {
+        console.error(err)
+      }
+    }
+
+    return {
+      ...toRefs(state),
+      getHadist,
+    }
+  }
 });
 </script>

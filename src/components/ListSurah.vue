@@ -12,19 +12,21 @@
   </ion-grid>
 
   <ion-card
-    @click="detail(item)"
     v-for="item in filterSurah"
     :key="item.number"
   >
     <ion-item>
-      <ion-button slot="start">{{ item.number }}</ion-button>
-      <ion-label>{{ item.name.transliteration.id }}</ion-label>
+      <ion-button @click="detail(item)" slot="start">{{ item.number }}</ion-button>
+      <ion-label @click="detail(item)">{{ item.name.transliteration.id }}</ion-label>
       <ion-button @click="openModal(item)" fill="outline" slot="end"
         >Tafsir</ion-button
       >
     </ion-item>
 
-    <ion-card-content> {{ item.name.translation.id }} </ion-card-content>
+    <ion-card-content 
+      @click="detail(item)"> 
+      {{ item.name.translation.id }} 
+    </ion-card-content>
   </ion-card>
 </template>
 

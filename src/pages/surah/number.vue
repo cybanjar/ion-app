@@ -10,7 +10,8 @@
     </ion-header>
 
     <ion-content>
-      <detail-surah :detailSurah="data" />
+      <loading v-if="isLoading" />
+      <detail-surah v-else :detailSurah="data" />
     </ion-content>
   </ion-page>
 </template>
@@ -47,6 +48,7 @@ export default defineComponent({
     const state = reactive({
       data: [],
       title: "",
+      isLoading: false,
     });
 
     onMounted(() => {
@@ -54,6 +56,7 @@ export default defineComponent({
     });
 
     function load() {
+      state.isLoading = true;
       axios
         .get(`https://api.quran.sutanlab.id/surah/${route.params.number}`)
         .then((response) => {
@@ -62,7 +65,8 @@ export default defineComponent({
         })
         .catch((err) => {
           console.error(err);
-        });
+        })
+        .then(() => (state.isLoading = false));
     }
 
     return {

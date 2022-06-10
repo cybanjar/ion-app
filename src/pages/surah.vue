@@ -10,14 +10,8 @@
     </ion-header>
 
     <ion-content>
-      <Suspense>
-        <template #default>
-          <list-surah :dataSurah="data" />
-        </template>
-        <template #fallback>
-          <ion-title class="ion-text-center">Loading ...</ion-title>
-        </template>
-      </Suspense>
+      <loading v-if="isLoading" />
+      <list-surah v-else :dataSurah="data" />
     </ion-content>
   </ion-page>
 </template>
@@ -31,14 +25,12 @@ import {
   IonTitle,
   IonToolbar,
   IonHeader,
-  toastController,
 } from "@ionic/vue";
 
 import ListSurah from "../components/ListSurah";
 
 import { defineComponent, onMounted, reactive, toRefs } from "vue";
-import axios from "axios";
-import { checkmark } from "ionicons/icons";
+import axios from 'axios';
 
 export default defineComponent({
   name: "HomePage",
@@ -65,26 +57,15 @@ export default defineComponent({
 
     async function getSurah() {
       try {
+        state.isLoading = true;
         const res = await axios.get("https://api.quran.sutanlab.id/surah/");
         state.data = res.data.data;
         state.message = res.data.message;
 
-        openToast();
+        state.isLoading = false;
       } catch (err) {
         console.error(err);
       }
-    }
-
-    async function openToast() {
-      const toast = await toastController.create({
-        message: state.message,
-        duration: 2000,
-        color: "primary",
-        position: "top",
-        icon: checkmark,
-        animated: true,
-      });
-      return toast.present();
     }
 
     return {
