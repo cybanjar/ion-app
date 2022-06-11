@@ -1,6 +1,19 @@
 /* Ionic Variables and Theming. For more info, please see:
 http://ionicframework.com/docs/theming/ */
 
+/* @import url("https://fonts.googleapis.com/css2?family=Scheherazade+New&display=swap"); */
+/* --ion-font-family: -apple-system, BlinkMacSystemFont, 'Scheherazade New', sans-serif; */
+
+@font-face {   
+  font-family: 'Scheherazade New';
+  src: url('@/assets/fonts/ScheherazadeNew-Regular.ttf');
+}
+
+.text-arab {
+  font-size: 1.25rem !important;
+  --ion-font-family: -apple-system, BlinkMacSystemFont, "Scheherazade New", sans-serif;
+}
+
 /** Ionic CSS Variables **/
 :root {
   /** primary **/

@@ -48,7 +48,7 @@ import {
 import { defineComponent, reactive, toRefs, watchEffect, computed } from "vue";
 import { book } from "ionicons/icons";
 import ModalTafsir from "./ModalTafsir";
-import { useRouter, useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   components: {
