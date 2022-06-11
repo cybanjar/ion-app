@@ -25,6 +25,7 @@ import '@ionic/vue/css/display.css';
 import './theme/variables.css';
 
 import Loading from '@/components/Loading.vue'
+import axios from 'axios'
 
 const pinia = createPinia()
 const app = createApp(App)
@@ -32,7 +33,13 @@ const app = createApp(App)
   .use(router)
   .use(pinia);
 
+const axiosInstance = axios.create({
+  withCredentials: true,
+})
+
 router.isReady().then(() => {
   app.component('Loading', Loading)
+  app.config.globalProperties.$axios = { ...axiosInstance }
+
   app.mount('#app');
 });

@@ -9,7 +9,7 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content>
+    <ion-content :scroll-events="true">
       <loading v-if="isLoading" />
       <detail-surah v-else :detailSurah="data" />
     </ion-content>
@@ -31,7 +31,7 @@ import {
 import axios from "axios";
 import DetailSurah from "@/components/DetailSurah.vue";
 
-export default defineComponent({
+export default defineComponent ({
   components: {
     IonPage,
     IonContent,
@@ -55,12 +55,12 @@ export default defineComponent({
       load();
     });
 
-    function load() {
-      state.isLoading = true;
-      axios
+    async function load() {
+      state.isLoading = true
+      await axios
         .get(`https://api.quran.sutanlab.id/surah/${route.params.number}`)
         .then((response) => {
-          state.data = response.data.data;
+          state.data = response.data.data.verses
           state.title = response.data.data.name.transliteration.id;
         })
         .catch((err) => {
@@ -73,8 +73,8 @@ export default defineComponent({
       ...toRefs(state),
       route,
     };
-  },
-});
+  }
+})
 </script>
 
 <style>

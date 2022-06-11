@@ -1,7 +1,7 @@
 <template>
   <ion-list
     class="ion-margin-bottom"
-    v-for="item in detailSurah.verses"
+    v-for="item in detailSurah"
     :key="item.number.inSurah"
   >
     <ion-item>
@@ -28,6 +28,7 @@ import {
   IonItem,
   IonButton,
   IonText,
+  IonLabel,
   modalController,
 } from "@ionic/vue";
 import ModalTafsir from "@/components/TafsirDetail.vue";
@@ -38,6 +39,7 @@ export default defineComponent({
     IonItem,
     IonButton,
     IonText,
+    IonLabel,
   },
   props: {
     detailSurah: { type: Array, require: true },

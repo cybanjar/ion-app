@@ -42,6 +42,7 @@ import {
   IonIcon,
   IonCardContent,
   IonSearchbar,
+  IonText,
   modalController,
 } from "@ionic/vue";
 import { defineComponent, reactive, toRefs, watchEffect, computed } from "vue";
@@ -61,6 +62,7 @@ export default defineComponent({
     IonIcon,
     IonCardContent,
     IonSearchbar,
+    IonText,
   },
   props: {
     dataSurah: {
@@ -70,7 +72,6 @@ export default defineComponent({
   },
   setup(props) {
     const router = useRouter();
-    const route = useRoute();
 
     const state = reactive({
       data: [],
@@ -125,7 +126,6 @@ export default defineComponent({
       openModal,
       detail,
       router,
-      route,
     };
   },
 });
