@@ -52,14 +52,25 @@ export default defineComponent({
     });
 
     onMounted(() => {
-      getSurah();
-    });
+      load()
+    })
+
+    async function load() {
+      const local = localStorage.getItem('surah')
+      if (local !== null) {
+        state.data = await JSON.parse(local)
+      } else {
+        getSurah()
+      }
+    }
 
     async function getSurah() {
       try {
         state.isLoading = true;
         const res = await axios.get("https://api.quran.sutanlab.id/surah/");
         state.data = res.data.data;
+
+        localStorage.setItem('surah', JSON.stringify(state.data))
         state.message = res.data.message;
 
         state.isLoading = false;

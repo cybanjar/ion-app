@@ -5,13 +5,13 @@ http://ionicframework.com/docs/theming/ */
 /* --ion-font-family: -apple-system, BlinkMacSystemFont, 'Scheherazade New', sans-serif; */
 
 @font-face {   
-  font-family: 'Scheherazade New';
-  src: url('@/assets/fonts/ScheherazadeNew-Regular.ttf');
+  font-family: Scheherazade;
+  src: url('../assets/fonts/ScheherazadeNew-Regular.ttf');
 }
 
 .text-arab {
   font-size: 1.25rem !important;
-  --ion-font-family: -apple-system, BlinkMacSystemFont, "Scheherazade New", sans-serif;
+  font-family: Scheherazade !important;
 }
 
 /** Ionic CSS Variables **/

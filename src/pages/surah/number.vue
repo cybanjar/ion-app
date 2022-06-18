@@ -39,7 +39,7 @@
 
 <script>
 import { defineComponent, onMounted, reactive, toRefs } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import {
   IonPage,
   IonContent,
@@ -54,6 +54,7 @@ import {
   IonLabel,
   IonText,
   modalController,
+  toastController,
 } from "@ionic/vue";
 import axios from "axios";
 import ModalTafsir from "@/components/TafsirDetail.vue"
@@ -74,12 +75,16 @@ export default defineComponent ({
     IonText,
   },
   setup() {
-    const route = useRoute();
+    const route = useRoute()
+    const router = useRouter()
 
     const state = reactive({
       data: [],
-      title: "",
+      title: '',
       isLoading: false,
+      message : {
+        error : ''
+      }
     });
 
     onMounted(() => {
@@ -87,6 +92,10 @@ export default defineComponent ({
     })
 
     async function load () {
+      await detail()
+    }
+
+    async function detail () {
       state.isLoading = true
       await axios
         .get(`https://api.quran.sutanlab.id/surah/${route.params.number}`)
@@ -95,9 +104,22 @@ export default defineComponent ({
           state.title = response.data.data.name.transliteration.id
         })
         .catch((err) => {
-          console.error(err);
+          state.message.error = err.message
+
+          errMessage()
+          router.go(-1)
         })
         .then(() => (state.isLoading = false))
+    }
+
+    async function errMessage() {
+      const toast = await toastController
+        .create({
+          message: state.message.error,
+          duration: 2000,
+          color: 'primary'
+        })
+      return toast.present()
     }
 
     async function tafsir (item) {

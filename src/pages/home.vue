@@ -15,7 +15,16 @@
           fill="outline"
           expand="full"
           @click="() => router.push('/surah')"
-          >Al-Qur'an</ion-button
+          >Al-Qur'an By Surah</ion-button
+        >
+        <ion-button
+          class="ion-padding"
+          color="primary"
+          shape="round"
+          fill="outline"
+          expand="full"
+          @click="() => router.push('/juz')"
+          >Al-Qur'an by Juz</ion-button
         >
         <ion-button
           class="ion-padding"

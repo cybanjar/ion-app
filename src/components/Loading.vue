@@ -4,7 +4,7 @@
       <div class="loading-container">
         <img
           class="loading-item"
-          src="@/assets/image/Send.svg"
+          src="@/assets/image/Heart.svg"
           alt="Icon Loading"
         />
       </div>
@@ -69,7 +69,7 @@ export default defineComponent({
 
   to {
     opacity: 0;
-    transform: scale(1);
+    transform: scale(1.5);
   }
 }
 </style>

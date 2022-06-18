@@ -6,6 +6,8 @@ import splash from '@/pages/splash.vue'
 import book from '@/pages/book.vue'
 import number from '@/pages/surah/number.vue'
 import id from '@/pages/book/id.vue'
+import juz from '@/pages/juz.vue'
+import juzId from '@/pages/juz/detailJuz.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -37,6 +39,16 @@ const routes: Array<RouteRecordRaw> = [
     path: '/book/:id',
     name: 'HadistId',
     component: id
+  },
+  {
+    path: '/juz',
+    name: 'Juz',
+    component: juz
+  },
+  {
+    path: '/juz/:id',
+    name: 'JuzId',
+    component: juzId
   },
 ]
 

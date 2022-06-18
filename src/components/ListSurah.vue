@@ -9,6 +9,7 @@
     </ion-row>
     <ion-text class="ion-padding">Surah {{ search.value }}</ion-text>
     <ion-searchbar v-model="search.value"></ion-searchbar>
+    <popular />
   </ion-grid>
 
   <ion-card
@@ -49,6 +50,7 @@ import { defineComponent, reactive, toRefs, watchEffect, computed } from "vue";
 import { book } from "ionicons/icons";
 import ModalTafsir from "./ModalTafsir";
 import { useRouter } from "vue-router";
+import Popular from '@/components/Popular'
 
 export default defineComponent({
   components: {
@@ -63,6 +65,7 @@ export default defineComponent({
     IonCardContent,
     IonSearchbar,
     IonText,
+    Popular
   },
   props: {
     dataSurah: {
