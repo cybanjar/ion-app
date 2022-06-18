@@ -19,7 +19,7 @@
       >
         <ion-item>
           <ion-button slot="start">{{ item.number.inSurah }}</ion-button>
-          <ion-button fill="outline" slot="end"
+          <ion-button @click="tafsir(item)" fill="outline" slot="end"
             >Tafsir</ion-button
           >
         </ion-item>
@@ -45,10 +45,12 @@ import {
   IonTitle,
   IonButtons,
   IonBackButton,
+  modalController,
 } from "@ionic/vue"
 import { defineComponent, onMounted, reactive, toRefs } from 'vue'
 import axios from 'axios'
 import { useRoute } from 'vue-router'
+import ModalTafsir from '@/components/TafsirDetail.vue'
 
 export default defineComponent({
   name: "DetailJuz",
@@ -87,9 +89,21 @@ export default defineComponent({
       })
     }
 
+    async function tafsir (item) {
+      const modal = await modalController.create({
+        component: ModalTafsir,
+        componentProps: {
+          title: item.number.inSurah,
+          tafsir: item.tafsir.id.long,
+        },
+      });
+      return modal.present()
+    }
+
     return {
       ...toRefs(state),
-      route
+      route,
+      tafsir
     }
   }
 })
