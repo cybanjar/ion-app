@@ -35,6 +35,15 @@
           router-link="/book"
           >Hadist</ion-button
         >
+        <ion-button
+          class="ion-padding"
+          color="primary"
+          shape="round"
+          fill="outline"
+          expand="full"
+          router-link="/about"
+          >About</ion-button
+        >
       </div>
     </ion-content>
   </ion-page>

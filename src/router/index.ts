@@ -8,6 +8,7 @@ import number from '@/pages/surah/number.vue'
 import id from '@/pages/book/id.vue'
 import juz from '@/pages/juz.vue'
 import juzId from '@/pages/juz/detailJuz.vue'
+import about from '@/pages/about.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -49,6 +50,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/juz/:id',
     name: 'JuzId',
     component: juzId
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component: about
   },
 ]
 
