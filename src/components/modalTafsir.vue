@@ -54,3 +54,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+p {
+  white-space: pre-line;
+}
+</style>

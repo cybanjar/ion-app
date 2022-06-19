@@ -17,6 +17,9 @@
         :key="item.number.inSurah"
         class="ion-margin-bottom"
       >
+        <ion-item v-if="item.number.inSurah === 1">
+          <ion-label class="text-arab ion-text-center"> {{ basmalah.arab }} </ion-label>
+        </ion-item>
         <ion-item>
           <ion-button slot="start">{{ item.number.inSurah }}</ion-button>
           <ion-button @click="tafsir(item)" fill="outline" slot="end"
@@ -51,6 +54,7 @@ import { defineComponent, onMounted, reactive, toRefs } from 'vue'
 import axios from 'axios'
 import { useRoute } from 'vue-router'
 import ModalTafsir from '@/components/TafsirDetail.vue'
+import bismillah from '@/data/bismillah.json'
 
 export default defineComponent({
   name: "DetailJuz",
@@ -68,8 +72,9 @@ export default defineComponent({
     const route = useRoute()
 
     const state = reactive({
-      data : [],
-      isLoading: false
+      data     : [],
+      isLoading: false,
+      basmalah : bismillah
     })
     onMounted(() => {
       juz()
@@ -103,7 +108,7 @@ export default defineComponent({
     return {
       ...toRefs(state),
       route,
-      tafsir
+      tafsir,
     }
   }
 })

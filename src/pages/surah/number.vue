@@ -18,6 +18,9 @@
         v-for="item in data"
         :key="item.number.inSurah"
       >
+        <ion-item v-if="item.number.inSurah === 1">
+          <ion-label class="text-arab ion-text-center"> {{ basmalah.arab }} </ion-label>
+        </ion-item>
         <ion-item>
           <ion-button slot="start">{{ item.number.inSurah }}</ion-button>
           <ion-button @click="tafsir(item)" fill="outline" slot="end"
@@ -58,6 +61,7 @@ import {
 } from "@ionic/vue";
 import axios from "axios";
 import ModalTafsir from "@/components/TafsirDetail.vue"
+import bismillah from '@/data/bismillah.json'
 
 export default defineComponent ({
   components: {
@@ -84,7 +88,8 @@ export default defineComponent ({
       isLoading: false,
       message : {
         error : ''
-      }
+      },
+      basmalah : bismillah
     });
 
     onMounted(() => {
