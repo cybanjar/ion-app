@@ -52,7 +52,7 @@ export default defineComponent({
     });
 
     onMounted(() => {
-      load()
+      getSurah()
     })
 
     async function load() {

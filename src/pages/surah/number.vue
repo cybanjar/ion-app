@@ -35,6 +35,9 @@
         <ion-item>
           <ion-text>{{ item.translation.id }}</ion-text>
         </ion-item>
+        <audio controls class="audio">
+          <source :src="item.audio.primary" type="audio/mpeg">
+        </audio>
       </ion-list>
     </ion-content>
   </ion-page>

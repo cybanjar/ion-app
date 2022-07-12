@@ -63,13 +63,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Scheherazade+New&display=swap");
-
-.text-arab {
-  font-size: 1.25rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Scheherazade New", "Segoe UI",
-    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-}
-</style>
