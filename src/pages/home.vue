@@ -44,6 +44,15 @@
           router-link="/about"
           >About</ion-button
         >
+        <ion-button
+          class="ion-padding"
+          color="primary"
+          shape="round"
+          fill="outline"
+          expand="full"
+          router-link="/setting"
+          >Setting</ion-button
+        >
       </div>
     </ion-content>
   </ion-page>

@@ -2,3 +2,16 @@
   width: -webkit-fill-available;
   margin: 8px 16px;
 }
+
+.float-right {
+  float: right !important;
+}
+
+.pl-xs {
+  padding-left: 0.5rem;
+}
+
+.text-caption {
+  color: #92949c;
+  font-size: smaller;
+}

@@ -31,9 +31,12 @@
             >{{ item.text.arab }}
           </ion-label>
         </ion-item>
-        <ion-item>
+        <ion-item v-if="setting.translation">
           <ion-text> {{ item.translation.id }}</ion-text>
         </ion-item>
+        <audio v-if="setting.audio" controls class="audio">
+          <source :src="item.audio.primary" type="audio/mpeg">
+        </audio>
       </ion-list>
     </ion-content>
   </ion-page>
@@ -55,6 +58,7 @@ import axios from 'axios'
 import { useRoute } from 'vue-router'
 import ModalTafsir from '@/components/TafsirDetail.vue'
 import bismillah from '@/data/bismillah.json'
+import { useSettingStore } from '@/store/setting'
 
 export default defineComponent({
   name: "DetailJuz",
@@ -109,6 +113,7 @@ export default defineComponent({
       ...toRefs(state),
       route,
       tafsir,
+      setting: useSettingStore()
     }
   }
 })

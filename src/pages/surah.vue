@@ -55,14 +55,14 @@ export default defineComponent({
       getSurah()
     })
 
-    async function load() {
-      const local = localStorage.getItem('surah')
-      if (local !== null) {
-        state.data = await JSON.parse(local)
-      } else {
-        getSurah()
-      }
-    }
+    // async function load() {
+    //   const local = localStorage.getItem('surah')
+    //   if (local !== null) {
+    //     state.data = await JSON.parse(local)
+    //   } else {
+    //     getSurah()
+    //   }
+    // }
 
     async function getSurah() {
       try {
