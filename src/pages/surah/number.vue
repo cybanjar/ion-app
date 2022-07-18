@@ -35,6 +35,9 @@
         <ion-item v-if="setting.translation">
           <ion-text>{{ item.translation.id }}</ion-text>
         </ion-item>
+        <ion-item v-if="setting.translationEn">
+          <ion-text>{{ item.translation.en }}</ion-text>
+        </ion-item>
         <audio v-if="setting.audio" controls class="audio">
           <source :src="item.audio.primary" type="audio/mpeg">
         </audio>

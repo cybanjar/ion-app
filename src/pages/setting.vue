@@ -21,10 +21,16 @@
           <ion-toggle v-model="setting.audio"></ion-toggle>
         </ion-item>
         <ion-item>
-          <ion-label>Translation <br>
+          <ion-label>Translation Indonesia<br>
             <span class="text-caption">Show translation</span>
           </ion-label>
           <ion-toggle v-model="setting.translation"></ion-toggle>
+        </ion-item>
+        <ion-item>
+          <ion-label>Translation English <br>
+            <span class="text-caption">Show translation</span>
+          </ion-label>
+          <ion-toggle v-model="setting.translationEn"></ion-toggle>
         </ion-item>
       </ion-list>
     </ion-content>
