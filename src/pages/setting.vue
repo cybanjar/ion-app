@@ -28,6 +28,15 @@
         </ion-item>
       </ion-list>
     </ion-content>
+    <ion-footer>
+      <ion-button 
+        router-link="/about"
+        expand="block" 
+        fill="clear"
+      >
+        About apps
+      </ion-button>
+    </ion-footer>
   </ion-page>
 </template>
 
@@ -45,6 +54,8 @@ import {
   IonItem,
   IonLabel,
   IonToggle,
+  IonFooter,
+  IonButton,
 } from "@ionic/vue"
 import { useSettingStore } from '@/store/setting'
 
@@ -61,13 +72,14 @@ export default defineComponent ({
     IonItem,
     IonLabel,
     IonToggle,
+    IonFooter,
+    IonButton,
   },
 
   setup() {
-    const setting = useSettingStore()
   
     return { 
-      setting,
+      setting: useSettingStore(),
     }
   }
 })

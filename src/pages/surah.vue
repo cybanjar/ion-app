@@ -13,6 +13,16 @@
       <loading v-if="isLoading" />
       <list-surah v-else :dataSurah="data" />
     </ion-content>
+
+    <ion-footer>
+      <ion-button 
+        router-link="/juz"
+        expand="block" 
+        fill="clear"
+      >
+        Mode Juz
+      </ion-button>
+    </ion-footer>
   </ion-page>
 </template>
 
@@ -25,10 +35,10 @@ import {
   IonTitle,
   IonToolbar,
   IonHeader,
+  IonFooter,
+  IonButton,
 } from "@ionic/vue";
-
 import ListSurah from "../components/ListSurah";
-
 import { defineComponent, onMounted, reactive, toRefs } from "vue";
 import axios from 'axios';
 
@@ -43,35 +53,24 @@ export default defineComponent({
     IonToolbar,
     IonHeader,
     ListSurah,
+    IonFooter,
+    IonButton,
   },
   setup() {
     const state = reactive({
       data: [],
       isLoading: false,
-      message: "",
     });
 
     onMounted(() => {
       getSurah()
     })
 
-    // async function load() {
-    //   const local = localStorage.getItem('surah')
-    //   if (local !== null) {
-    //     state.data = await JSON.parse(local)
-    //   } else {
-    //     getSurah()
-    //   }
-    // }
-
     async function getSurah() {
       try {
         state.isLoading = true;
         const res = await axios.get("https://api.quran.sutanlab.id/surah/");
         state.data = res.data.data;
-
-        localStorage.setItem('surah', JSON.stringify(state.data))
-        state.message = res.data.message;
 
         state.isLoading = false;
       } catch (err) {

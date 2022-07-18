@@ -15,16 +15,7 @@
           fill="outline"
           expand="full"
           @click="() => router.push('/surah')"
-          >Al-Qur'an By Surah</ion-button
-        >
-        <ion-button
-          class="ion-padding"
-          color="primary"
-          shape="round"
-          fill="outline"
-          expand="full"
-          @click="() => router.push('/juz')"
-          >Al-Qur'an by Juz</ion-button
+          >Al-Qur'an</ion-button
         >
         <ion-button
           class="ion-padding"
@@ -34,15 +25,6 @@
           expand="full"
           router-link="/book"
           >Hadist</ion-button
-        >
-        <ion-button
-          class="ion-padding"
-          color="primary"
-          shape="round"
-          fill="outline"
-          expand="full"
-          router-link="/about"
-          >About</ion-button
         >
         <ion-button
           class="ion-padding"
