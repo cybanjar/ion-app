@@ -30,6 +30,7 @@ import {
 
 import ListBook from '@/components/ListBook.vue'
 import axios from 'axios'
+import { hadistLocal } from '@/api/config'
 
 export default defineComponent({
   components: {
@@ -57,7 +58,7 @@ export default defineComponent({
       try {
         state.isLoading = true
 
-        const res = await axios.get('https://api.hadith.sutanlab.id/books')
+        const res = await axios.get(`${hadistLocal}/books`)
         state.data = res.data.data
 
         state.isLoading = false

@@ -26,6 +26,15 @@
           router-link="/book"
           >Hadist</ion-button
         >
+        <!-- <ion-button
+          class="ion-padding"
+          color="primary"
+          shape="round"
+          fill="outline"
+          expand="full"
+          router-link="/time-sholat"
+          >Jadwal Sholat</ion-button
+        > -->
         <ion-button
           class="ion-padding"
           color="primary"

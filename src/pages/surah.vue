@@ -41,6 +41,7 @@ import {
 import ListSurah from "../components/ListSurah";
 import { defineComponent, onMounted, reactive, toRefs } from "vue";
 import axios from 'axios';
+import { quranLocal } from '@/api/config'
 
 export default defineComponent({
   name: "HomePage",
@@ -69,7 +70,7 @@ export default defineComponent({
     async function getSurah() {
       try {
         state.isLoading = true;
-        const res = await axios.get("https://api.quran.sutanlab.id/surah/");
+        const res = await axios.get(`${quranLocal}/surah`);
         state.data = res.data.data;
 
         state.isLoading = false;

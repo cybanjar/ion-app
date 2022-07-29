@@ -69,6 +69,7 @@ import axios from "axios";
 import ModalTafsir from "@/components/TafsirDetail.vue"
 import bismillah from '@/data/bismillah.json'
 import { useSettingStore } from '@/store/setting'
+import { quranLocal } from '@/api/config'
 
 export default defineComponent ({
   components: {
@@ -111,7 +112,7 @@ export default defineComponent ({
     async function detail () {
       state.isLoading = true
       await axios
-        .get(`https://api.quran.sutanlab.id/surah/${route.params.number}`)
+        .get(`${quranLocal}/surah/${route.params.number}`)
         .then((response) => {
           state.data = response.data.data.verses
           state.title = response.data.data.name.transliteration.id

@@ -1,0 +1,43 @@
+@url = https://api.myquran.com/v1
+@json = application/json
+@kemenagv1 = https://quran.kemenag.go.id/api/v1
+@quran = https://quran-api-cybanjar.vercel.app
+@hadist = https://hadith-api-cybanjar.vercel.app
+
+### all surah
+GET {{quran}}/surah
+
+### surah 1
+GET {{quran}}/surah/1
+
+### juz 1
+GET {{quran}}/juz/1
+
+### books
+GET {{hadist}}/books
+
+###
+GET {{hadist}}/books/muslim?range=1-5
+
+###
+GET {{url}}/sholat/kota/semua
+Content-Type: {{json}}
+
+###
+GET {{url}}/sholat/kota/cari/brebes
+Content-Type: {{json}}
+
+###
+GET {{url}}/sholat/jadwal/1505/2022/07/26
+Content-Type: {{json}}
+
+
+
+### surahs
+GET {{kemenagv1}}/surah/0/114
+
+### detail
+GET {{kemenagv1}}/ayatweb/55/0/0/10
+
+### tafsir ayat
+GET {{kemenagv1}}/tafsirbyayat/2

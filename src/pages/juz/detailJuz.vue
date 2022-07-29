@@ -62,6 +62,7 @@ import { useRoute } from 'vue-router'
 import ModalTafsir from '@/components/TafsirDetail.vue'
 import bismillah from '@/data/bismillah.json'
 import { useSettingStore } from '@/store/setting'
+import { quranLocal } from '@/api/config'
 
 export default defineComponent({
   name: "DetailJuz",
@@ -89,7 +90,7 @@ export default defineComponent({
 
     async function juz () {
       state.isLoading = true
-      await axios.get(`https://api.quran.sutanlab.id/juz/${route.params.id}`)
+      await axios.get(`${quranLocal}/juz/${route.params.id}`)
       .then((response) => {
         state.data = response.data.data.verses
       })

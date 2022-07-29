@@ -66,6 +66,7 @@ import { reactive, toRefs } from '@vue/reactivity'
 import { onMounted } from 'vue'
 import axios from 'axios'
 import { search } from 'ionicons/icons'
+import { hadistLocal } from '@/api/config'
 
 export default {
   components: {
@@ -103,7 +104,7 @@ export default {
       try {
         state.isLoading = true
 
-        const res  = await axios.get(`https://api.hadith.sutanlab.id/books/${route.params.id}?range=${state.start}-${state.end}`)
+        const res  = await axios.get(`${hadistLocal}/books/${route.params.id}?range=${state.start}-${state.end}`)
         state.data = res.data.data.hadiths
         state.title = res.data.data.name
 
@@ -123,13 +124,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-/* @import url("https://fonts.googleapis.com/css2?family=Scheherazade+New&display=swap");
-
-.text-arab {
-  font-size: 1.25rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Scheherazade New", "Segoe UI",
-    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-} */
-</style>
