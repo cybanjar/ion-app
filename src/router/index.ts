@@ -10,7 +10,6 @@ import juz from '@/pages/juz.vue'
 import juzId from '@/pages/juz/detailJuz.vue'
 import about from '@/pages/about.vue'
 import setting from '@/pages/setting.vue'
-import timeSholat from '@/pages/time-sholat.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -62,11 +61,6 @@ const routes: Array<RouteRecordRaw> = [
     path: '/setting',
     name: 'Setting',
     component: setting
-  },
-  {
-    path: '/time-sholat',
-    name: 'TimeSholat',
-    component: timeSholat
   },
 ]
 
