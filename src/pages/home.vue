@@ -2,6 +2,9 @@
   <ion-page>
     <ion-content :fullscreen="true">
       <div id="container">
+        <div class="ion-text-center">
+          <ion-icon class="icon-book" :icon="book"></ion-icon>
+        </div>
         <p class="ion-margin">
           "Aku telah tinggalkan pada kalian dua perkara. <br />
           Kalian tidak akan tersesat selama berpegang kepada keduanya, (yaitu)
@@ -54,12 +57,14 @@ import {
   IonContent,
   IonPage,
   IonButton,
+  IonIcon,
   useBackButton,
   useIonRouter,
 } from "@ionic/vue";
 import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import { Plugins } from "@capacitor/core";
+import { book } from "ionicons/icons";
 
 const { App } = Plugins;
 
@@ -80,6 +85,7 @@ export default defineComponent({
 
     return {
       router: useRouter(),
+      book
     };
   },
 });
@@ -99,5 +105,9 @@ export default defineComponent({
   font-size: 12px;
   line-height: 22px;
   color: #8c8c8c;
+}
+
+.icon-book {
+  font-size: 5rem;
 }
 </style>

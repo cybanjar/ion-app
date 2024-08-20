@@ -11,11 +11,11 @@
 
     <ion-content class="ion-padding-vertical ion-padding">
       <ion-title class="ion-text-center">Assalamu'alaikum warohmatullohiwabarokaatuh</ion-title>
-      <p>Terimakasih sudah mendownload apps wasiat yang didalamnya ada al-qur'an dan hadist. appsnya free semoga kedepannya lebih bisa dikembangkan lagi untuk syiar islam</p>
+      <p class="ion-text-justify">Terimakasih sudah mendownload apps al-qur'an dan hadist. appsnya free untuk menggunakannya wajib ada koneksi internet dan semoga kedepannya lebih bisa dikembangkan lagi untuk syiar islam</p>
       <p>Sorce data : 
         <ol class="s">
-          <a href="https://api.quran.sutanlab.id/surah" target="_blank" rel="noopener noreferrer"><li>Al-Qur'an</li></a>
-          <a href="https://api.hadith.sutanlab.id/books" target="_blank" rel="noopener noreferrer"><li>Hadist</li></a>
+          <a href="https://quran-api-cybanjar.vercel.app/surah" target="_blank" rel="noopener noreferrer"><li>Al-Qur'an</li></a>
+          <a href="https://hadith-api-cybanjar.vercel/books" target="_blank" rel="noopener noreferrer"><li>Hadist</li></a>
         </ol>
       </p>
 
