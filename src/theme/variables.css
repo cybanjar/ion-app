@@ -158,6 +158,9 @@ http://ionicframework.com/docs/theming/ */
     --ion-color-light-contrast-rgb: 255,255,255;
     --ion-color-light-shade: #1e2023;
     --ion-color-light-tint: #383a3e;
+
+    --ion-statusbar-padding: #000000;
+    --ion-safe-area-top: #000000;
   }
 
   /*

@@ -16,7 +16,7 @@
         
         <ion-label position="fixed">End : </ion-label>
         <ion-input type="number" v-model="end" placeholder="End"></ion-input>
-        <ion-button @click="getHadist">
+        <ion-button @click="load">
           <ion-icon :icon="search"></ion-icon>
         </ion-button>
       </ion-item>
@@ -64,9 +64,8 @@ import {
 } from '@ionic/vue'
 import { reactive, toRefs } from '@vue/reactivity'
 import { onMounted } from 'vue'
-import axios from 'axios'
 import { search } from 'ionicons/icons'
-import { hadistLocal } from '@/api/config'
+import { getBookId } from '@/api/hadits'
 
 export default {
   components: {
@@ -87,7 +86,6 @@ export default {
 
   setup() {
     const route = useRoute()
-
     const state = reactive({
       start: 1,
       end  : 10,
@@ -97,20 +95,21 @@ export default {
     })
 
     onMounted(() => {
-      getHadist()
+      load()
     })
 
-    async function getHadist () {
+    async function load () {
+      state.isLoading = true
+      
+      const params = { range: `${state.start}-${state.end}`}
       try {
-        state.isLoading = true
-
-        const res  = await axios.get(`${hadistLocal}/books/${route.params.id}?range=${state.start}-${state.end}`)
-        state.data = res.data.data.hadiths
-        state.title = res.data.data.name
-
+        const response = await getBookId(route.params.id, params)
+        state.data = response.data.hadiths
+        state.title = response.data.name
+      } catch (error) {
+        console.error(error)
+      } finally {
         state.isLoading = false
-      } catch (err) {
-        console.error(err)
       }
     }
 
@@ -119,7 +118,7 @@ export default {
       route,
       state,
       search,
-      getHadist,
+      load,
     }
   }
 }

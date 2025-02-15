@@ -57,7 +57,6 @@ import {
   IonContent,
   IonPage,
   IonButton,
-  IonIcon,
   useBackButton,
   useIonRouter,
 } from "@ionic/vue";

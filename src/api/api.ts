@@ -1,17 +1,20 @@
-import axios from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
+import { hadistLocal } from '@/api/config'
 
-const baseURL = 'http://jsonplaceholder.typicode.com'
+export interface Parameter {
+  [key: string]: any
+}
 
 export default {
-  doFetch: async (url:any) => {
-    const requestURL = baseURL + url;
+  doFetch: async (url: string, params?: AxiosRequestConfig) => {
+    const requestURL = hadistLocal + url;
 
     try {
-      const response = await axios.get(requestURL);
+      const response = await axios.get(requestURL, params);
       
       const data = await response.data;
       return data;
-    } catch (error:any) {
+    } catch (error: any) {
       return { errorMessage: error.message };
     }
   },

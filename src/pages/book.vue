@@ -29,8 +29,7 @@ import {
 } from "@ionic/vue"
 
 import ListBook from '@/components/ListBook.vue'
-import axios from 'axios'
-import { hadistLocal } from '@/api/config'
+import { getBooks } from "@/api/hadits"
 
 export default defineComponent({
   components: {
@@ -51,25 +50,24 @@ export default defineComponent({
     })
 
     onMounted(() => {
-      getHadist()
+      load()
     })
 
-    async function getHadist () {
+    async function load () {
+      state.isLoading = true
       try {
-        state.isLoading = true
-
-        const res = await axios.get(`${hadistLocal}/books`)
-        state.data = res.data.data
-
+        const res = await getBooks()
+        state.data = res.data
+      } catch (error) {
+        console.error(error)
+      } finally {
         state.isLoading = false
-      } catch (err) {
-        console.error(err)
       }
     }
 
     return {
       ...toRefs(state),
-      getHadist,
+      load
     }
   }
 });
