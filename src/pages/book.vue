@@ -10,14 +10,14 @@
     </ion-header>
 
     <ion-content>
-      <loading v-if="isLoading" />
-      <list-book v-else :dataHadist="data"/>
+      <loading v-if="loading" />
+      <list-book v-else :dataHadist="books"/>
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs } from "vue"
+import { defineComponent, onMounted } from "vue"
 import {
   IonPage,
   IonContent,
@@ -29,7 +29,7 @@ import {
 } from "@ionic/vue"
 
 import ListBook from '@/components/ListBook.vue'
-import { getBooks } from "@/api/hadits"
+import { useHaditsStore } from '@/store/hadits'
 
 export default defineComponent({
   components: {
@@ -44,30 +44,15 @@ export default defineComponent({
   },
 
   setup() {
-    const state = reactive({
-      data: [],
-      isLoading: false
-    })
-
+    const { loadBooks, books, loading } = useHaditsStore()
+    
     onMounted(() => {
-      load()
+      loadBooks()
     })
-
-    async function load () {
-      state.isLoading = true
-      try {
-        const res = await getBooks()
-        state.data = res.data
-      } catch (error) {
-        console.error(error)
-      } finally {
-        state.isLoading = false
-      }
-    }
 
     return {
-      ...toRefs(state),
-      load
+      books,
+      loading,
     }
   }
 });

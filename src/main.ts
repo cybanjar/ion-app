@@ -27,8 +27,10 @@ import './assets/css/app.css';
 
 import Loading from '@/components/Loading.vue'
 import axios from 'axios'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
 const app = createApp(App)
   .use(IonicVue)
   .use(router)
