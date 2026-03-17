@@ -25,7 +25,14 @@ async function run() {
 
     if (!data.choices) {
       console.error("API ERROR:", data)
-      process.exit(1)
+
+      // fallback biar tetap ada perubahan file
+      fs.writeFileSync(
+        `ai-output-${process.env.ISSUE_NUMBER}.txt`,
+        "AI FAILED: " + JSON.stringify(data)
+      )
+
+      process.exit(0) // jangan fail CI
     }
 
     const output = data.choices[0].message.content
