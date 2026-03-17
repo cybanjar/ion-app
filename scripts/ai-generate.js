@@ -18,7 +18,7 @@ async function run() {
         ]
       })
     })
-
+    console.log("API KEY EXISTS:", !!process.env.OPENAI_API_KEY)
     console.log("STATUS:", res.status)
 
     const data = await res.json()
