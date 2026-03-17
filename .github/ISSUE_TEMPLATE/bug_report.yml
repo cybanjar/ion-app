@@ -1,39 +1,62 @@
 name: Bug Report  
 description: Report a bug in the project  
 title: "[Bug] "  
-labels: ["bug"]  
+labels: ["bug", "ai-task"]  
+
 body:
   - type: markdown  
     attributes:
-      value: "Thanks for reporting this issue! Please fill in the details below."
+      value: "Thanks! Please fill this clearly so AI can fix it automatically 🤖"
+
   - type: input  
     id: bug-summary  
     attributes:
       label: "Bug Summary"
-      placeholder: "Briefly describe the issue"
+      placeholder: "Button checkout tidak bisa diklik"
     validations:
       required: true  
+
+  - type: input
+    id: file-path
+    attributes:
+      label: "File Path (IMPORTANT for AI)"
+      placeholder: "components/CheckoutButton.vue"
+    validations:
+      required: true
+
   - type: textarea  
     id: steps-to-reproduce  
     attributes:
       label: "Steps to Reproduce"
-      description: "How can we reproduce this issue?"
       placeholder: |
-        1. Go to...
-        2. Click on...
-        3. See the error...
+        1. Buka halaman checkout
+        2. Klik button
+        3. Tidak terjadi apa-apa
     validations:
       required: true  
+
   - type: textarea  
     id: expected-result  
     attributes:
-      label: "Expected vs. Actual Result"
-      description: "What did you expect to happen?"
-      placeholder: "I expected..."
+      label: "Expected Result"
+      placeholder: "Button harus submit form"
+
+  - type: textarea
+    id: actual-result
+    attributes:
+      label: "Actual Result"
+      placeholder: "Button tidak merespon"
+
+  - type: textarea
+    id: error-log
+    attributes:
+      label: "Error Log (if any)"
+      placeholder: "Console error / stack trace"
+
   - type: dropdown  
     id: browser  
     attributes:
-      label: "Which browser are you using?"
+      label: "Browser"
       options:
         - Chrome  
         - Firefox  
