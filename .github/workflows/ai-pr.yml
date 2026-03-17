@@ -21,7 +21,7 @@ jobs:
       - name: Debug Issue
         run: |
           echo "TITLE: ${{ github.event.issue.title }}"
-          echo "LABELS: ${{ toJson(github.event.issue.labels) }}"
+          echo "LABELS: ${{ join(github.event.issue.labels.*.name, ', ') }}"
 
       - name: Generate code from AI
         run: node scripts/ai-generate.js
