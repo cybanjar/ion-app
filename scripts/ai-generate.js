@@ -26,8 +26,14 @@ async function run() {
       messages: [{ role: "user", content: prompt }]
     })
   })
+  console.log("STATUS:", res.status)
 
   const data = await res.json()
+  if (!data.choices) {
+    console.error("ERROR RESPONSE:", data)
+    process.exit(1)
+  }
+
   const output = data.choices[0].message.content
 
   // contoh: tulis ke file
