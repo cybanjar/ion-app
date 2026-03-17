@@ -48,7 +48,7 @@ import {
 } from "@ionic/vue";
 import { defineComponent, reactive, toRefs, watchEffect, computed } from "vue";
 import { book } from "ionicons/icons";
-import ModalTafsir from "./ModalTafsir";
+import ModalTafsir from "./modalTafsir";
 import { useRouter } from "vue-router";
 import Popular from '@/components/Popular'
 
