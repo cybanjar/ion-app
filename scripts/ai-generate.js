@@ -1,6 +1,27 @@
 const fs = require("fs")
 
 async function run() {
+  const title = process.env.ISSUE_TITLE
+  const body = process.env.ISSUE_BODY
+  const number = process.env.ISSUE_NUMBER
+
+  const prompt = `
+    You are a senior Nuxt 3 developer.
+
+    Fix this issue:
+
+    Title: ${title}
+    Description:
+    ${body}
+
+    Return ONLY code with file path.
+
+    Format:
+    FILE: path/to/file
+    CODE:
+    <code here>
+  `
+
   try {
     const res = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
@@ -13,7 +34,7 @@ async function run() {
         messages: [
           {
             role: "user",
-            content: "Fix bug from issue"
+            content: prompt
           }
         ]
       })
