@@ -1,0 +1,9 @@
+I’d be happy to help you fix a bug! However, I’ll need more details about the issue you’re facing. Please provide the following information:
+
+1. A description of the bug (what is not working as expected).
+2. The environment/setup (programming language, framework, etc.).
+3. Any error messages you are seeing.
+4. The relevant code or a minimal reproducible example.
+5. Steps to reproduce the bug.
+
+With this information, I’ll be able to assist you more effectively!
