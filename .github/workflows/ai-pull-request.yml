@@ -1,0 +1,87 @@
+name: AI Pull Request Generator
+
+on:
+  issues:
+    types: [opened, labeled]
+
+jobs:
+  ai-code-gen:
+    if: github.event.label.name == 'ai-job'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: read
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          ref: develop # Pastikan AI mengambil basis kode terbaru dari develop
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install @octokit/rest openai
+
+      - name: Run AI Agent
+        id: ai_agent
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        # Menjalankan script AI yang melakukan analisa & perubahan file
+        run: node scripts/ai-bot.js
+
+      - name: Process Branch Name
+        id: vars
+        run: |
+          TITLE="${{ github.event.issue.title }}"
+          ID="${{ github.event.issue.number }}"
+          # Menentukan prefix branch berdasarkan keyword di judul issue
+          if [[ "$TITLE" == *"ai-fix"* ]]; then
+            echo "branch=fix/ai-issue-$ID" >> $GITHUB_OUTPUT
+          else
+            echo "branch=feat/ai-feature-$ID" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and Push to Develop Branch
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git checkout -b ${{ steps.vars.outputs.branch }}
+          git add .
+          
+          if git diff --staged --quiet; then
+            echo "No changes detected."
+            exit 0
+          else
+            git commit -m "AI Agent: ${{ github.event.issue.title }}"
+            # Push branch baru ke origin
+            git push origin ${{ steps.vars.outputs.branch }}
+          fi
+
+      - name: Create PR to Develop
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create \
+            --title "[DEV] AI: ${{ github.event.issue.title }}" \
+            --body "Automated PR for Issue #${{ github.event.issue.number }} targeting Develop." \
+            --base develop \
+            --head ${{ steps.vars.outputs.branch }}
+      
+      - name: Create PR to Master (Production Ready)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create \
+            --title "[PROD] AI: ${{ github.event.issue.title }}" \
+            --body "This PR merges AI changes from Issue #${{ github.event.issue.number }} to Master." \
+            --base master \
+            --head ${{ steps.vars.outputs.branch }}
