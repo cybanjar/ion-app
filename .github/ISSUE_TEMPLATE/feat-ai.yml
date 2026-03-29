@@ -1,0 +1,34 @@
+name: "Feature with AI (ai-feature)"
+description: "Minta AI untuk membuat fitur atau komponen baru"
+title: "ai-feature: [Tulis nama fitur baru di sini]"
+labels: ["ai-job"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### 🚀 AI Feature Request
+        AI akan menganalisis struktur folder Anda dan mencoba membuatkan fitur baru sesuai standar koding yang ada.
+  - type: textarea
+    id: feature_goal
+    attributes:
+      label: Tujuan Fitur
+      description: Apa yang ingin Anda bangun?
+      placeholder: "Contoh: Buat halaman kontak baru yang berisi form (Nama, Email, Pesan) menggunakan Tailwind CSS."
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Prioritas
+      options:
+        - Low
+        - Medium
+        - High
+    validations:
+      required: true
+  - type: textarea
+    id: technical_specs
+    attributes:
+      label: Spesifikasi Teknis (Opsional)
+      description: Instruksi tambahan seperti library yang harus dipakai atau struktur folder.
+      placeholder: "Gunakan Composition API dan simpan file di folder src/pages/ContactView.vue"

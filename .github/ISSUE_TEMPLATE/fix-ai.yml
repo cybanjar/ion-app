@@ -1,0 +1,30 @@
+name: "Fix with AI (ai-fix)"
+description: "Minta AI untuk memperbaiki bug pada kode yang sudah ada"
+title: "ai-fix: [Tulis judul singkat bug di sini]"
+labels: ["ai-job"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### 🤖 AI Bug Fix Request
+        Gunakan template ini agar AI dapat mengidentifikasi letak error dan memperbaikinya secara otomatis.
+  - type: textarea
+    id: bug_description
+    attributes:
+      label: Deskripsi Masalah
+      description: Apa yang salah? Apa hasil yang diharapkan?
+      placeholder: "Contoh: Tombol logout di Navbar tidak merespon saat diklik di mobile."
+    validations:
+      required: true
+  - type: input
+    id: affected_files
+    attributes:
+      label: File Terkait (Opsional)
+      description: Jika Anda tahu file mana yang bermasalah, tuliskan di sini agar AI lebih akurat.
+      placeholder: "src/components/Navbar.vue"
+  - type: textarea
+    id: error_logs
+    attributes:
+      label: Error Logs atau Screenshot Console
+      description: Tempelkan pesan error jika ada.
+      placeholder: "Uncaught ReferenceError: logoutUser is not defined"
