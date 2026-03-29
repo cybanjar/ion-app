@@ -1,0 +1,21 @@
+NO FILE CHANGED:
+ACTION: update  
+FILE: src/pages/home.vue  
+CODE:  
+```vue
+<template>
+  <ion-content>
+    <ion-button>{{ buttonText }}</ion-button>
+  </ion-content>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+
+const buttonText = ref('hadits');
+</script>
+
+<style scoped>
+/* Add any styles here if needed */
+</style>
+```
