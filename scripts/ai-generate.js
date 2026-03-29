@@ -5,9 +5,9 @@ const title = process.env.ISSUE_TITLE || ""
 const body = process.env.ISSUE_BODY || ""
 const number = process.env.ISSUE_NUMBER || "unknown"
 
-// ambil struktur project (fokus src)
+// ambil struktur project (biar AI punya context)
 function getProjectStructure(dir, depth = 2) {
-  if (depth === 0) return ""
+  if (!fs.existsSync(dir) || depth === 0) return ""
 
   return fs.readdirSync(dir)
     .map(file => {
@@ -20,28 +20,63 @@ function getProjectStructure(dir, depth = 2) {
     .join("\n")
 }
 
+// apply patch sederhana (diff)
+function applyPatch(filePath, patch) {
+  if (!fs.existsSync(filePath)) {
+    console.log("❌ File not found:", filePath)
+    return false
+  }
+
+  let content = fs.readFileSync(filePath, "utf-8")
+
+  const lines = patch.split("\n")
+
+  let oldLine = ""
+  let newLine = ""
+
+  lines.forEach(line => {
+    if (line.startsWith("- ")) {
+      oldLine = line.replace("- ", "").trim()
+    }
+    if (line.startsWith("+ ")) {
+      newLine = line.replace("+ ", "").trim()
+    }
+  })
+
+  if (!oldLine || !newLine) {
+    console.log("❌ Invalid patch format")
+    return false
+  }
+
+  if (!content.includes(oldLine)) {
+    console.log("⚠️ Old line not found in file")
+    return false
+  }
+
+  content = content.replace(oldLine, newLine)
+
+  fs.writeFileSync(filePath, content)
+
+  console.log("✅ PATCH APPLIED:", filePath)
+  return true
+}
+
 async function run() {
   try {
     const structure = getProjectStructure("./src")
 
     const prompt = `
-      You are a senior Vue 3 developer using Vue CLI and Ionic Vue.
+      You are a senior Vue 3 + Ionic developer.
 
-      You MUST fix the issue below.
-      DO NOT ask questions.
-      DO NOT explain.
-      DO NOT return text.
+      Fix the issue below.
 
-      If information is incomplete, MAKE A BEST GUESS.
+      IMPORTANT:
+      - DO NOT ask questions
+      - DO NOT explain
+      - ALWAYS return a PATCH
 
       PROJECT STRUCTURE (src):
       ${structure}
-
-      PROJECT STACK:
-      - Vue 3
-      - Vue Router
-      - Pinia
-      - Ionic Vue
 
       ISSUE:
       Title: ${title}
@@ -49,21 +84,18 @@ async function run() {
       ${body}
 
       RULES:
-      - Always return at least ONE file change
-      - Focus on src/components, src/views, src/pages
-      - Use Vue 3 Composition API if possible
-      - If UI bug → fix component
-      - If file doesn't exist → create new one
+      - Find the correct file inside src/
+      - Modify ONLY necessary part
+      - DO NOT rewrite full file
 
-      OUTPUT FORMAT (STRICT):
-      ACTION: update
-      FILE: src/components/Example.vue
-      CODE:
-      <full code>
+      OUTPUT FORMAT:
 
-      You can return multiple ACTION blocks.
+      FILE: src/path/to/file.vue
+      PATCH:
+      - old code
+      + new code
 
-      Only return this format. No explanation.
+      You can return multiple FILE blocks.
     `
 
     const res = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -78,7 +110,7 @@ async function run() {
         messages: [
           {
             role: "system",
-            content: "You are an expert Vue 3 + Ionic developer. Always output code only."
+            content: "You are an expert Vue 3 + Ionic developer. Only output PATCH."
           },
           {
             role: "user",
@@ -93,11 +125,11 @@ async function run() {
     const data = await res.json()
 
     if (!data.choices) {
-      console.error("API ERROR:", data)
+      console.error("❌ API ERROR:", data)
 
       fs.writeFileSync(
         `ai-output-${number}.txt`,
-        "AI FAILED:\n" + JSON.stringify(data, null, 2)
+        JSON.stringify(data, null, 2)
       )
 
       process.exit(0)
@@ -107,53 +139,48 @@ async function run() {
 
     console.log("AI OUTPUT:\n", output)
 
-    if (!output.includes("FILE:") || !output.includes("CODE:")) {
-      fs.writeFileSync(
-        `ai-output-${number}.txt`,
-        "INVALID FORMAT:\n" + output
-      )
+    if (!output.includes("FILE:") || !output.includes("PATCH:")) {
+      console.log("❌ Invalid AI format")
+
+      fs.writeFileSync(`ai-output-${number}.txt`, output)
       process.exit(0)
     }
 
-    const blocks = output.split("ACTION:")
+    // parsing multiple FILE blocks
+    const blocks = output.split("FILE:")
 
-    let fileCount = 0
+    let successCount = 0
 
     blocks.forEach(block => {
-      const fileMatch = block.match(/FILE:\s(.+)/)
-      const codeMatch = block.match(/CODE:\n([\s\S]*)/)
+      const fileMatch = block.match(/^(.+)\n/)
+      const patchMatch = block.match(/PATCH:\n([\s\S]*)/)
 
-      if (fileMatch && codeMatch) {
+      if (fileMatch && patchMatch) {
         const filePath = fileMatch[1].trim()
-        const code = codeMatch[1].trim()
+        const patch = patchMatch[1].trim()
 
-        // whitelist path (biar aman)
-        const allowed = ["src/components", "src/views", "src/pages"]
-
-        if (!allowed.some(p => filePath.startsWith(p))) {
-          console.log("SKIP:", filePath)
+        // security: hanya izinkan src/
+        if (!filePath.startsWith("src/")) {
+          console.log("⛔ SKIP invalid path:", filePath)
           return
         }
 
         const fullPath = path.resolve(filePath)
 
-        fs.mkdirSync(path.dirname(fullPath), { recursive: true })
-        fs.writeFileSync(fullPath, code)
+        const success = applyPatch(fullPath, patch)
 
-        console.log("UPDATED:", filePath)
-        fileCount++
+        if (success) successCount++
       }
     })
 
-    if (fileCount === 0) {
-      fs.writeFileSync(
-        `ai-output-${number}.txt`,
-        "NO FILE CHANGED:\n" + output
-      )
+    if (successCount === 0) {
+      console.log("⚠️ No patch applied, fallback to txt")
+
+      fs.writeFileSync(`ai-output-${number}.txt`, output)
     }
 
   } catch (err) {
-    console.error("SCRIPT ERROR:", err)
+    console.error("❌ SCRIPT ERROR:", err)
 
     fs.writeFileSync(
       `ai-error-${number}.txt`,
