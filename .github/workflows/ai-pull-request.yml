@@ -76,12 +76,12 @@ jobs:
             --base develop \
             --head ${{ steps.vars.outputs.branch }}
       
-      - name: Create PR to Master (Production Ready)
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr create \
-            --title "[PROD] AI: ${{ github.event.issue.title }}" \
-            --body "This PR merges AI changes from Issue #${{ github.event.issue.number }} to Master." \
-            --base master \
-            --head ${{ steps.vars.outputs.branch }}
+      # - name: Create PR to Master (Production Ready)
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: |
+      #     gh pr create \
+      #       --title "[PROD] AI: ${{ github.event.issue.title }}" \
+      #       --body "This PR merges AI changes from Issue #${{ github.event.issue.number }} to Master." \
+      #       --base master \
+      #       --head ${{ steps.vars.outputs.branch }}
