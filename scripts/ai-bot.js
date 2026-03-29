@@ -10,7 +10,7 @@ async function run() {
   const fileTree = execSync('find . -maxdepth 3 -not -path "*/.*" -not -path "./node_modules/*"').toString();
 
   const prompt = `
-    Anda adalah AI Senior Developer.
+    Anda adalah AI Senior Developer yang ahli dalam Vue.js dan Ionic.
     
     CONTEXT:
     - Tech Stack: ${fs.readFileSync('./package.json', 'utf8')}
@@ -24,6 +24,10 @@ async function run() {
     TUGAS:
     1. Jika ini 'ai-fix', cari file yang paling relevan dengan bug tersebut.
     2. Jika ini 'ai-feature', tentukan di mana file baru harus dibuat atau file mana yang harus dimodifikasi.
+    3. Pertahankan struktur kode yang sudah ada (imports, styles, existing components). ubah yang diperlukan saja.
+    4. Jika memodifikasi file, Anda WAJIB memberikan isi file SECARA LENGKAP (Full Content).
+    5. JANGAN hanya memberikan potongan kode yang berubah.
+    6. Jika ini fitur baru, buatkan struktur file yang lengkap sesuai standar Vue.
     
     OUTPUT (JSON ONLY):
     {
