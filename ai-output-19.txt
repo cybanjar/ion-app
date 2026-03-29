@@ -1,0 +1,19 @@
+NO FILE CHANGED:
+ACTION: update  
+FILE: src/pages/home.vue  
+CODE:  
+```vue
+<template>
+  <ion-content>
+    <ion-button>
+      hadits
+    </ion-button>
+  </ion-content>
+</template>
+
+<script setup>
+</script>
+
+<style scoped>
+</style>
+```
